@@ -1,0 +1,354 @@
+/* ══════════════════════════════════════════
+   SANZ OFFICIAL — style.css
+   ══════════════════════════════════════════ */
+
+:root {
+  --cyan:             #00c8ff;
+  --white:            #ffffff;
+  --muted:            rgba(255,255,255,0.55);
+  --glass-bg:         rgba(255,255,255,0.07);
+  --glass-border:     rgba(255,255,255,0.12);
+  --font:             'Inter', sans-serif;
+
+  /* Platform colors */
+  --saweria:          #f59e0b;
+  --github:           #e6edf3;
+  --tiktok:           #69c9d0;        /* FIX: was empty before */
+  --instagram:        #e1306c;
+  --whatsapp:         #25d366;
+  --whatsapp-channel: #128c7e;
+  --telegram:         #2ca5e0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* FIX: biar ga kecil di Chrome desktop — 16px base sudah cukup, jangan scale turun */
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--white);
+  background: #080c14;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ══════════════════════════
+   BACKGROUND
+══════════════════════════ */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+#bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.bg-fallback {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #0d1b2a 0%, #0a0e1a 60%, #080c14 100%);
+  z-index: -1;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(8,12,20,0.25) 0%,
+    rgba(8,12,20,0.55) 35%,
+    rgba(8,12,20,0.85) 65%,
+    rgba(8,12,20,0.97) 100%
+  );
+}
+
+/* ══════════════════════════
+   PAGE WRAPPER
+   FIX: max-width lebih lebar + center di desktop
+══════════════════════════ */
+.page {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 520px;       /* cukup lebar di desktop, proper di HP */
+  margin: 0 auto;
+  padding: 0 20px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ══════════════════════════
+   PROFILE
+══════════════════════════ */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(56px, 12vw, 96px);
+  padding-bottom: 32px;
+  gap: 14px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Avatar */
+.avatar-wrap {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 2;
+  border: 3px solid rgba(0, 200, 255, 0.6);
+}
+
+.avatar-fallback {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  font-size: 2.2rem;
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  animation: haloBreath 3s ease-in-out infinite;
+}
+
+@keyframes haloBreath {
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px rgba(0,200,255,0.2),
+      0 0 14px 6px rgba(0,200,255,0.35),
+      0 0 30px 10px rgba(0,200,255,0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px rgba(0,200,255,0.1),
+      0 0 10px 4px rgba(0,200,255,0.2),
+      0 0 22px 8px rgba(0,200,255,0.08);
+  }
+}
+
+/* Profile text */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-name {
+  font-size: clamp(1.35rem, 5vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.verified {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.verified img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(0,200,255,0.6));
+}
+
+.profile-sub {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.profile-bio {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.55;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+/* ══════════════════════════
+   LINKS
+══════════════════════════ */
+.links-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+
+  /* Glass */
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 2px 16px rgba(0,0,0,0.3);
+
+  /* Boot stagger — set by JS */
+  opacity: 0;
+  transform: translateY(14px);
+
+  transition:
+    background  0.22s ease,
+    border-color 0.22s ease,
+    box-shadow  0.22s ease,
+    transform   0.18s ease;
+}
+
+.link-btn:hover {
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 8px 28px rgba(0,0,0,0.45);
+}
+
+.link-btn:active {
+  transform: scale(0.985);
+}
+
+/* Icon box */
+.link-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  background: rgba(255,255,255,0.08);
+  transition: background 0.2s;
+}
+
+/* FIX: semua platform punya warna + background yang benar */
+.link-btn[data-platform="saweria"]          .link-icon { color: var(--saweria);          background: rgba(245,158,11,0.15); }
+.link-btn[data-platform="github"]           .link-icon { color: var(--github);            background: rgba(230,237,243,0.10); }
+.link-btn[data-platform="tiktok"]           .link-icon { color: var(--tiktok);            background: rgba(105,201,208,0.12); }
+.link-btn[data-platform="instagram"]        .link-icon { color: var(--instagram);         background: rgba(225,48,108,0.12); }
+.link-btn[data-platform="whatsapp"]         .link-icon { color: var(--whatsapp);          background: rgba(37,211,102,0.12); }
+.link-btn[data-platform="whatsapp-channel"] .link-icon { color: var(--whatsapp-channel);  background: rgba(18,140,126,0.12); }
+.link-btn[data-platform="telegram"]         .link-icon { color: var(--telegram);          background: rgba(44,165,224,0.12); }
+
+.link-btn:hover .link-icon {
+  background: rgba(255,255,255,0.14);
+}
+
+/* Icon image (Saweria favicon) */
+.link-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.link-label {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.link-arrow {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.3);
+  line-height: 1;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.link-btn:hover .link-arrow {
+  transform: translateX(4px);
+  color: rgba(255,255,255,0.65);
+}
+
+/* ══════════════════════════
+   FOOTER
+══════════════════════════ */
+.page-footer {
+  margin-top: 36px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════
+   RESPONSIVE
+   FIX: link-icon width/height responsive yang salah sebelumnya
+══════════════════════════ */
+@media (max-width: 400px) {
+  .page        { padding: 0 14px 40px; }
+  .link-btn    { padding: 12px 14px; gap: 12px; }
+  .link-icon   { width: 40px; height: 40px; }   /* FIX: was "width: 0 16px" */
+  .link-label  { font-size: 0.9rem; }
+  .avatar-wrap { width: 90px; height: 90px; }
+}
+
+/* Desktop — biar ga terlalu sempit di Chrome */
+@media (min-width: 600px) {
+  .page { padding: 0 32px 64px; }
+  .link-btn { padding: 16px 20px; }
+  .link-icon { width: 48px; height: 48px; }
+  .link-label { font-size: 1rem; }
+  .profile-name { font-size: 1.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-glow { animation: none; }
+  .link-btn    { transition: none; opacity: 1; transform: none; }
+}
